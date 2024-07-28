@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../Theme/theme.dart';
+import '../Pages/main_page.dart'; // Import MainPage
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -85,7 +86,15 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               const SizedBox(height: 40),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: !_isRegistration
+                    ? () {
+                        // Navigate to MainPage using pushReplacement when "Войти" is pressed in login state
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => const MainPage()),
+                        );
+                      }
+                    : null, // Disable button in registration state
                 style: ElevatedButton.styleFrom(
                   backgroundColor: _isRegistration
                       ? DoDidDoneTheme.lightTheme.colorScheme.secondary
@@ -117,9 +126,9 @@ class _LoginPageState extends State<LoginPage> {
                 },
                 style: TextButton.styleFrom(
                   foregroundColor: Colors.white,
-                  textStyle: const TextStyle(
+                  textStyle: TextStyle(
                     fontSize: 16,
-                    color: Colors.white, // Set text color to white
+                    color: Colors.white,
                   ),
                 ),
                 child: Text(
